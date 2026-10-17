@@ -1,0 +1,29 @@
+{
+  "name": "tier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bensmith00/tier-optimization-agent.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bensmith00/tier-optimization-agent/issues"
+  },
+  "homepage": "https://github.com/bensmith00/tier-optimization-agent#readme",
+  "dependencies": {
+    "@langchain/langgraph": "^1.5.1",
+    "@langchain/openai": "^1.6.2",
+    "@nodeops-createos/sandbox": "^0.8.2",
+    "chart.js": "^4.5.1",
+    "daisyui": "^5.7.50",
+    "stripe": "^23.0.0"
+  }
+}

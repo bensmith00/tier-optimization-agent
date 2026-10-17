@@ -1,0 +1,72 @@
+[
+  {
+    "scenario": "STEADY_STATE",
+    "customerId": "cus_VSZmihALQUG8v7",
+    "currentTierId": "price_basic_1",
+    "metrics": [
+      { "timestamp": "2026-10-13T10:00:00Z", "cpu_usage_pct": 22.4, "ram_usage_gb": 1.1, "api_calls_per_sec": 12 },
+      { "timestamp": "2026-10-13T10:05:00Z", "cpu_usage_pct": 21.8, "ram_usage_gb": 1.1, "api_calls_per_sec": 11 },
+      { "timestamp": "2026-10-13T10:10:00Z", "cpu_usage_pct": 23.5, "ram_usage_gb": 1.2, "api_calls_per_sec": 14 },
+      { "timestamp": "2026-10-13T10:15:00Z", "cpu_usage_pct": 22.1, "ram_usage_gb": 1.1, "api_calls_per_sec": 13 },
+      { "timestamp": "2026-10-13T10:20:00Z", "cpu_usage_pct": 24.1, "ram_usage_gb": 1.2, "api_calls_per_sec": 14 },
+      { "timestamp": "2026-10-13T10:25:00Z", "cpu_usage_pct": 23.0, "ram_usage_gb": 1.1, "api_calls_per_sec": 12 },
+      { "timestamp": "2026-10-13T10:30:00Z", "cpu_usage_pct": 22.5, "ram_usage_gb": 1.1, "api_calls_per_sec": 13 }
+    ]
+  },
+  {
+    "scenario": "VIRAL_SPIKE",
+    "customerId": "cus_VSZmihALQUG8v7",
+    "currentTierId": "price_basic_1",
+    "metrics": [
+      { "timestamp": "2026-10-13T09:00:00Z", "cpu_usage_pct": 21.0, "ram_usage_gb": 1.1, "api_calls_per_sec": 10 },
+      { "timestamp": "2026-10-13T09:05:00Z", "cpu_usage_pct": 22.5, "ram_usage_gb": 1.1, "api_calls_per_sec": 12 },
+      { "timestamp": "2026-10-13T09:10:00Z", "cpu_usage_pct": 21.8, "ram_usage_gb": 1.1, "api_calls_per_sec": 11 },
+      { "timestamp": "2026-10-13T09:15:00Z", "cpu_usage_pct": 23.1, "ram_usage_gb": 1.2, "api_calls_per_sec": 14 },
+      { "timestamp": "2026-10-13T09:20:00Z", "cpu_usage_pct": 22.0, "ram_usage_gb": 1.1, "api_calls_per_sec": 13 },
+      { "timestamp": "2026-10-13T09:25:00Z", "cpu_usage_pct": 21.5, "ram_usage_gb": 1.1, "api_calls_per_sec": 10 },
+      { "timestamp": "2026-10-13T09:30:00Z", "cpu_usage_pct": 21.0, "ram_usage_gb": 1.1, "api_calls_per_sec": 10 },
+      { "timestamp": "2026-10-13T09:35:00Z", "cpu_usage_pct": 22.5, "ram_usage_gb": 1.1, "api_calls_per_sec": 12 },
+      { "timestamp": "2026-10-13T09:40:00Z", "cpu_usage_pct": 21.8, "ram_usage_gb": 1.1, "api_calls_per_sec": 11 },
+      { "timestamp": "2026-10-13T09:45:00Z", "cpu_usage_pct": 23.1, "ram_usage_gb": 1.2, "api_calls_per_sec": 14 },
+      { "timestamp": "2026-10-13T09:50:00Z", "cpu_usage_pct": 22.0, "ram_usage_gb": 1.1, "api_calls_per_sec": 13 },
+      { "timestamp": "2026-10-13T09:55:00Z", "cpu_usage_pct": 21.5, "ram_usage_gb": 1.1, "api_calls_per_sec": 10 },
+      { "timestamp": "2026-10-13T10:00:00Z", "cpu_usage_pct": 21.0, "ram_usage_gb": 1.1, "api_calls_per_sec": 10 },
+      { "timestamp": "2026-10-13T10:05:00Z", "cpu_usage_pct": 22.5, "ram_usage_gb": 1.1, "api_calls_per_sec": 12 },
+      { "timestamp": "2026-10-13T10:10:00Z", "cpu_usage_pct": 21.8, "ram_usage_gb": 1.1, "api_calls_per_sec": 11 },
+      { "timestamp": "2026-10-13T10:15:00Z", "cpu_usage_pct": 23.1, "ram_usage_gb": 1.2, "api_calls_per_sec": 14 },
+      { "timestamp": "2026-10-13T10:20:00Z", "cpu_usage_pct": 22.0, "ram_usage_gb": 1.1, "api_calls_per_sec": 13 },
+      { "timestamp": "2026-10-13T10:25:00Z", "cpu_usage_pct": 21.5, "ram_usage_gb": 1.1, "api_calls_per_sec": 10 },
+      { "timestamp": "2026-10-13T10:30:00Z", "cpu_usage_pct": 89.4, "ram_usage_gb": 3.4, "api_calls_per_sec": 245 },
+      { "timestamp": "2026-10-13T10:35:00Z", "cpu_usage_pct": 95.2, "ram_usage_gb": 3.8, "api_calls_per_sec": 310 },
+      { "timestamp": "2026-10-13T10:40:00Z", "cpu_usage_pct": 98.1, "ram_usage_gb": 3.9, "api_calls_per_sec": 340 }
+    ]
+  },
+  {
+    "scenario": "USAGE_DROP",
+    "customerId": "cus_VSZmihALQUG8v7",
+    "currentTierId": "price_enterprise_3",
+    "metrics": [
+      { "timestamp": "2026-10-13T09:00:00Z", "cpu_usage_pct": 65.0, "ram_usage_gb": 4.1, "api_calls_per_sec": 120 },
+      { "timestamp": "2026-10-13T09:05:00Z", "cpu_usage_pct": 62.5, "ram_usage_gb": 4.0, "api_calls_per_sec": 115 },
+      { "timestamp": "2026-10-13T09:10:00Z", "cpu_usage_pct": 64.8, "ram_usage_gb": 4.1, "api_calls_per_sec": 122 },
+      { "timestamp": "2026-10-13T09:15:00Z", "cpu_usage_pct": 63.1, "ram_usage_gb": 4.2, "api_calls_per_sec": 118 },
+      { "timestamp": "2026-10-13T09:20:00Z", "cpu_usage_pct": 66.0, "ram_usage_gb": 4.1, "api_calls_per_sec": 125 },
+      { "timestamp": "2026-10-13T09:25:00Z", "cpu_usage_pct": 61.5, "ram_usage_gb": 4.0, "api_calls_per_sec": 110 },
+      { "timestamp": "2026-10-13T09:30:00Z", "cpu_usage_pct": 65.0, "ram_usage_gb": 4.1, "api_calls_per_sec": 120 },
+      { "timestamp": "2026-10-13T09:35:00Z", "cpu_usage_pct": 62.5, "ram_usage_gb": 4.0, "api_calls_per_sec": 115 },
+      { "timestamp": "2026-10-13T09:40:00Z", "cpu_usage_pct": 64.8, "ram_usage_gb": 4.1, "api_calls_per_sec": 122 },
+      { "timestamp": "2026-10-13T09:45:00Z", "cpu_usage_pct": 63.1, "ram_usage_gb": 4.2, "api_calls_per_sec": 118 },
+      { "timestamp": "2026-10-13T09:50:00Z", "cpu_usage_pct": 66.0, "ram_usage_gb": 4.1, "api_calls_per_sec": 125 },
+      { "timestamp": "2026-10-13T09:55:00Z", "cpu_usage_pct": 61.5, "ram_usage_gb": 4.0, "api_calls_per_sec": 110 },
+      { "timestamp": "2026-10-13T10:00:00Z", "cpu_usage_pct": 65.0, "ram_usage_gb": 4.1, "api_calls_per_sec": 120 },
+      { "timestamp": "2026-10-13T10:05:00Z", "cpu_usage_pct": 62.5, "ram_usage_gb": 4.0, "api_calls_per_sec": 115 },
+      { "timestamp": "2026-10-13T10:10:00Z", "cpu_usage_pct": 64.8, "ram_usage_gb": 4.1, "api_calls_per_sec": 122 },
+      { "timestamp": "2026-10-13T10:15:00Z", "cpu_usage_pct": 63.1, "ram_usage_gb": 4.2, "api_calls_per_sec": 118 },
+      { "timestamp": "2026-10-13T10:20:00Z", "cpu_usage_pct": 66.0, "ram_usage_gb": 4.1, "api_calls_per_sec": 125 },
+      { "timestamp": "2026-10-13T10:25:00Z", "cpu_usage_pct": 61.5, "ram_usage_gb": 4.0, "api_calls_per_sec": 110 },
+      { "timestamp": "2026-10-13T10:30:00Z", "cpu_usage_pct": 12.0, "ram_usage_gb": 0.8, "api_calls_per_sec": 5 },
+      { "timestamp": "2026-10-13T10:35:00Z", "cpu_usage_pct": 4.2, "ram_usage_gb": 0.4, "api_calls_per_sec": 1 },
+      { "timestamp": "2026-10-13T10:40:00Z", "cpu_usage_pct": 1.1, "ram_usage_gb": 0.2, "api_calls_per_sec": 0 }
+    ]
+  }
+]

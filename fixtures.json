@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "template_version": 0
+  },
+  "fixtures": [
+    {
+      "name": "basic_product",
+      "path": "/v1/products",
+      "method": "post",
+      "params": {
+        "name": "Basic Tier",
+        "description": "Standard compute"
+      }
+    },
+    {
+      "name": "price_basic",
+      "path": "/v1/prices",
+      "method": "post",
+      "params": {
+        "product": "${basic_product:id}",
+        "currency": "usd",
+        "unit_amount": 2900,
+        "recurring": { "interval": "month" },
+        "lookup_key": "price_basic_1",
+        "transfer_lookup_key": true
+      }
+    },
+    {
+      "name": "enterprise_product",
+      "path": "/v1/products",
+      "method": "post",
+      "params": {
+        "name": "Enterprise Tier",
+        "description": "High compute"
+      }
+    },
+    {
+      "name": "price_enterprise",
+      "path": "/v1/prices",
+      "method": "post",
+      "params": {
+        "product": "${enterprise_product:id}",
+        "currency": "usd",
+        "unit_amount": 9900,
+        "recurring": { "interval": "month" },
+        "lookup_key": "price_enterprise_3",
+        "transfer_lookup_key": true
+      }
+    },
+    {
+      "name": "test_customer",
+      "path": "/v1/customers",
+      "method": "post",
+      "params": {
+        "name": "Agent Test User",
+        "email": "test@example.com",
+        "source": "tok_visa"
+      }
+    },
+    {
+      "name": "test_subscription",
+      "path": "/v1/subscriptions",
+      "method": "post",
+      "params": {
+        "customer": "${test_customer:id}",
+        "items": [
+          {
+            "price": "${price_basic:id}"
+          }
+        ]
+      }
+    }
+  ]
+}
