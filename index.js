@@ -17,6 +17,7 @@ const llm = new ChatOpenAI({ modelName: "gpt-4o", temperature: 0.1 });
 // ---------------------------------------------------------
 export const AgentState = Annotation.Root({
   scenarioId: Annotation,
+  requireApproval: Annotation,
   customerId: Annotation,
   currentTierId: Annotation,
   telemetryWindow: Annotation,
@@ -141,6 +142,12 @@ const stripeBillingAction = async (state) => {
     return { logs: ["STRIPE ERROR: Invalid recommendation for tier mapping"] };
   }
 
+  // <--- NEW: Human-in-the-Loop Intercept --->
+  if (state.requireApproval) {
+    console.log(`    [Stripe API]: HITL Intercept Active. Halting migration to ${targetLookupKey}.`);
+    return { logs: [`STRIPE: Human-in-the-Loop active... awaiting manual approval to migrate to ${targetLookupKey}.`] };
+  }
+
   if (state.customerId === "cus_DEMO_REPLACE_ME") {
     console.log(`    [Stripe API]: Skipped execution (Mock Customer). Simulated transition to ${targetLookupKey}.`);
     return { logs: [`STRIPE: Simulated migration to ${targetLookupKey} for mock customer.`] };
@@ -233,7 +240,11 @@ app.post('/api/run-agent', async (req, res) => {
   console.log("--> API HIT: Triggering Autonomous Agent...");
   try {
     // Allows the frontend to pass a scenario, defaulting to USAGE_DROP
-    const initialState = { scenarioId: req.body.scenarioId || "USAGE_DROP" }; 
+    //Catch the requireApproval boolean from the frontend 
+    const initialState = { 
+      scenarioId: req.body.scenarioId || "USAGE_DROP",
+      requireApproval: req.body.requireApproval || false 
+    };
     const finalState = await agentExecutionApp.invoke(initialState);
     
     console.log("\nFinal Agent State (Logs):", finalState.logs);

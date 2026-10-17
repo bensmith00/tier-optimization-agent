@@ -17,6 +17,7 @@ export class DashboardComponent {
   isProcessing = signal<boolean>(false);
   agentResponse = signal<any>(null);
   activeScenario = signal<string>('');
+  hitlEnabled = signal<boolean>(false); // <--- NEW: Tracks the HITL toggle state
 
   chart: any;
 
@@ -86,6 +87,11 @@ export class DashboardComponent {
       });
   }
 
+  // <--- NEW: Method to handle the toggle switch state --->
+  toggleHitl() {
+    this.hitlEnabled.update(val => !val);
+  }
+
   runScenario(scenarioId: string, scenarioName: string) {
     this.activeScenario.set(scenarioName);
     this.isProcessing.set(true);
@@ -95,11 +101,45 @@ export class DashboardComponent {
     this.fetchChartData(scenarioId);
 
     // 2. Trigger the backend AI Agent execution
-    this.http.post('http://localhost:3000/api/run-agent', { scenarioId })
+    this.http.post('http://localhost:3000/api/run-agent', {
+      scenarioId,
+      requireApproval: this.hitlEnabled()
+    })
       .subscribe({
-        next: (response) => {
+        next: (response: any) => {
           this.agentResponse.set(response);
           this.isProcessing.set(false);
+
+          // 3. Check if the backend paused for HITL approval
+          const requiresManualApproval = response.logs.some((log: string) => log.includes("awaiting manual approval"));
+
+          if (requiresManualApproval) {
+            // Wait 100ms for the DOM to update the terminal logs before firing the alert
+            setTimeout(() => {
+              const userConfirmed = window.confirm(
+                `[HITL ALERT] The AI Agent recommends a billing migration based on the telemetry analysis.\n\nDo you approve the execution of this Stripe subscription update?`
+              );
+
+              if (userConfirmed) {
+                // If approved, immediately run the scenario again with the guard disabled
+                this.isProcessing.set(true);
+
+                this.http.post('http://localhost:3000/api/run-agent', {
+                  scenarioId,
+                  requireApproval: false // Force the migration through
+                }).subscribe({
+                  next: (finalResponse) => {
+                    this.agentResponse.set(finalResponse);
+                    this.isProcessing.set(false);
+                  },
+                  error: (err) => {
+                    console.error("Final Agent Error:", err);
+                    this.isProcessing.set(false);
+                  }
+                });
+              }
+            }, 100);
+          }
         },
         error: (err) => {
           console.error("Agent Error:", err);
