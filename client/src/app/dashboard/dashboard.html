@@ -1,0 +1,67 @@
+<div class="min-h-screen bg-base-300 p-8 font-sans text-base-content" data-theme="cyber">
+
+  <!-- Header Section -->
+  <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-10 pb-6 border-b border-neutral gap-6">
+    <div>
+      <h1 class="text-3xl font-bold tracking-widest text-primary mb-2">T.I.E.R (Telemetry-Informed Execution Routing)</h1>
+      <h2 class="text-lg opacity-80 uppercase tracking-wider">CreateOS Sandbox & Stripe Billing Architecture</h2>
+    </div>
+
+    <!-- Scenario Execution Triggers -->
+    <div class="flex flex-col sm:flex-row gap-4 font-mono">
+      <button class="btn btn-outline btn-success" [disabled]="isProcessing()" (click)="runScenario('STEADY_STATE', 'STEADY_STATE')">
+        [ RUN STEADY STATE ]
+      </button>
+      <button class="btn btn-outline btn-warning" [disabled]="isProcessing()" (click)="runScenario('VIRAL_SPIKE', 'VIRAL_SPIKE')">
+        [ RUN VIRAL SPIKE ]
+      </button>
+      <button class="btn btn-outline btn-error" [disabled]="isProcessing()" (click)="runScenario('USAGE_DROP', 'CHURN_RISK')">
+        [ RUN CHURN RISK ]
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Architecture Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+    <!-- Left Panel: Telemetry Ingestion -->
+    <div class="card bg-base-100 shadow-xl border border-neutral p-6">
+      <h3 class="text-xl font-mono text-secondary mb-6 border-b border-neutral pb-2">TELEMETRY INGESTION</h3>
+
+      <div class="w-full h-80 relative flex items-center justify-center bg-base-200 rounded-box p-4">
+        <canvas id="telemetryChart"></canvas>
+      </div>
+      <p class="text-center font-mono opacity-50 mt-4 text-sm">[ Compute Usage (ms) ]</p>
+    </div>
+
+    <!-- Right Panel: Agent Execution State -->
+    <div class="card bg-base-100 shadow-xl border border-neutral p-6">
+      <h3 class="text-xl font-mono text-secondary mb-6 border-b border-neutral pb-2">AGENT EXECUTION STATE</h3>
+
+      <div class="mockup-code w-full min-h-[20rem] shadow-inner bg-neutral text-neutral-content">
+        <!-- Idle State -->
+        @if (!isProcessing() && !agentResponse()) {
+          <pre data-prefix=">"><code class="opacity-50">Awaiting Sandbox Execution...</code></pre>
+        }
+
+        <!-- Active Execution State -->
+        @if (isProcessing() || agentResponse()) {
+          <pre data-prefix="$" class="text-info"><code>[System] Initializing Agent Run: {{ activeScenario() }}...</code></pre>
+        }
+
+        @if (isProcessing()) {
+          <pre data-prefix=">"><code class="animate-pulse text-warning">Booting hardware-isolated Firecracker micro-VM...</code></pre>
+        }
+
+        <!-- Completed State Logs -->
+        @if (!isProcessing() && agentResponse()) {
+          @for (log of agentResponse().logs; track log) {
+            <pre data-prefix="$" [class.text-success]="log.includes('STRIPE') || log.includes('UPGRADE') || log.includes('DOWNGRADE')"><code>{{ log }}</code></pre>
+          }
+          <pre data-prefix=">"><code class="opacity-50 animate-pulse mt-4 block">Awaiting Sandbox Execution...</code></pre>
+        }
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -5,6 +5,8 @@ import fs from "fs";
 import path from "path";
 import { SystemMessage, HumanMessage } from "@langchain/core/messages";
 import { createClient } from "@nodeops-createos/sandbox";
+import express from 'express';
+import cors from 'cors';
 
 // Initialize external services
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -221,16 +223,47 @@ const workflow = new StateGraph(AgentState)
 export const agentExecutionApp = workflow.compile();
 
 // ---------------------------------------------------------
-// TEST EXECUTION
+// EXPRESS API SERVER
 // ---------------------------------------------------------
-async function run() {
-  const initialState = { scenarioId: "USAGE_DROP" }; //STEADY_STATE, USAGE_DROP, VIRAL_SPIKE
-  const finalState = await agentExecutionApp.invoke(initialState);
-  
-  console.log("\nFinal Agent State (Logs):", finalState.logs);
-  
-  // Force Node.js to exit and close any dangling SDK connections
-  process.exit(0); 
-}
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-run();
+app.post('/api/run-agent', async (req, res) => {
+  console.log("--> API HIT: Triggering Autonomous Agent...");
+  try {
+    // Allows the frontend to pass a scenario, defaulting to USAGE_DROP
+    const initialState = { scenarioId: req.body.scenarioId || "USAGE_DROP" }; 
+    const finalState = await agentExecutionApp.invoke(initialState);
+    
+    console.log("\nFinal Agent State (Logs):", finalState.logs);
+    
+    res.json({ 
+      success: true, 
+      message: "Agent execution complete",
+      logs: finalState.logs 
+    });
+  } catch (error) {
+    console.error("Agent failed:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Expose an endpoint to fetch dynamic chart data
+app.get('/api/telemetry/:scenarioId', (req, res) => {
+  try {
+    const filePath = path.join(process.cwd(), 'telemetry.json');
+    const rawData = fs.readFileSync(filePath, 'utf-8');
+    const datasets = JSON.parse(rawData);
+    
+    const targetData = datasets.find((d) => d.scenario === req.params.scenarioId);
+    if (!targetData) return res.status(404).json({ error: "Scenario not found" });
+    
+    res.json({ metrics: targetData.metrics });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+const PORT = 3000;
+app.listen(PORT, () => console.log(`🚀 TIER Backend API running on http://localhost:${PORT}`));
